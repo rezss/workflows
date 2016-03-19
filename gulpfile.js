@@ -6,6 +6,7 @@
         gutil = require('gulp-util'),
         coffee = require('gulp-coffee'),
         concat = require('gulp-concat'),
+        browserify = require('gulp-browserify'),
         coffeeSources = ['components/coffee/tagline.coffee'],
         jsSources = ['components/scripts/rclick.js',
                      'components/scripts/pixgrid.js',
@@ -17,7 +18,10 @@
     });
     
     gulp.task('js', function () {
-        gulp.src(jsSources).pipe(concat('script.js')).pipe(gulp.dest('builds/development/js'));
+        gulp.src(jsSources)
+            .pipe(concat('script.js'))
+            .pipe(browserify())
+            .pipe(gulp.dest('builds/development/js'));
     });
  
 }());
