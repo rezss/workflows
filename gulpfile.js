@@ -14,7 +14,9 @@
                      'components/scripts/pixgrid.js',
                      'components/scripts/tagline.js',
                      'components/scripts/template.js'],
-        sassSources = ['components/sass/style.scss'];
+        sassSources = ['components/sass/style.scss'],
+        htmlSources = ['builds/development/*.html'],
+        jsonSources = ['builds/development/js/*.json'];
 
     gulp.task('coffee', function () {
         gulp.src(coffeeSources)
@@ -47,7 +49,8 @@
         gulp.watch(coffeeSources, ['coffee']);
         gulp.watch(jsSources, ['js']);
         gulp.watch('components/sass/*.scss', ['compass']);
-        gulp.watch(['builds/development/*.html'], ['html']);
+        gulp.watch(htmlSources, ['html']);
+        gulp.watch(jsonSources, ['json']);
     });
     
     gulp.task('connect', function () {
@@ -58,7 +61,12 @@
     });
     
     gulp.task('html', function () {
-        gulp.src('builds/development/*.html')
+        gulp.src(htmlSources)
+            .pipe(connect.reload());
+    });
+    
+    gulp.task('json', function () {
+        gulp.src(jsonSources)
             .pipe(connect.reload());
     });
     
