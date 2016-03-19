@@ -40,7 +40,13 @@
             .pipe(gulp.dest('builds/development/css'));
     });
     
-    gulp.task('default', ['coffee', 'js', 'compass']);
+    gulp.task('watch', function () {
+        gulp.watch(coffeeSources, ['coffee']);
+        gulp.watch(jsSources, ['js']);
+        gulp.watch('components/sass/*.scss', ['compass']);
+    })
+    
+    gulp.task('default', ['coffee', 'js', 'compass', 'watch']);
  
 }());
 
